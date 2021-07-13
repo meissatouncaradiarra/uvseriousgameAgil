@@ -1,0 +1,1 @@
+print('HELLO MASTER SERIOUS GAME')
