@@ -3,7 +3,7 @@ print('HELLO MAISSA I AM SOULEYMANE')
 print ("Hello World")
 print("Bonjour c'est  Moustapha")
 print('HELLO ERICS')
-print('HELLO SY2')
+print('HELLO SY')
 import pygame
 from pygame.locals import *
 pygame.init()
