@@ -1,16 +1,64 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
+
 import pygame
+from pygame.locals import *
 
 pygame.init()
+
+ecran = pygame.display.set_mode((700, 450))
+image = pygame.image.load("maquette2.png").convert_alpha()
+serpent = pygame.image.load("serpent.jpg").convert_alpha()
+ecran.blit(image, (0, 0))
+Sx=8
+Sy=6
+jeu = True
+def new_func():
+    jeu = False
+while jeu:
+    ecran.blit(serpent, (95+Sx*30, 30+Sy*30))
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+           Sy+=1
+            
+    pygame.display.flip()
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            jeu = False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""pygame.init()
 clock = pygame.time.Clock()
 
 CIEL = 0, 200, 255
 ORANGE = 255, 100, 0
 
 def main():
-    fenetre = pygame.display.set_mode((640, 480))
+    fenetre = pygame.display.set_mode((699, 467))
 
     loop = True
     while loop:
@@ -22,8 +70,7 @@ def main():
 
         # Définition du texte
         # render(text, antialias, rgb color tuple)
-        title_text = bigText.render("Maître Corbeau sur un arbre perché",
-                                    True, ORANGE)
+        title_text = bigText.render("Moustapha SOKHNA",True, ORANGE)
         # Position: horizontal au centre , vertical = 50
         # Le centre du texte est au centre quelque soit le texte
         # Le texte est inscrit dans un rectangle
@@ -48,4 +95,4 @@ def main():
         clock.tick(10)
 
 if __name__ == '__main__':
-    main()
+    main()"""
