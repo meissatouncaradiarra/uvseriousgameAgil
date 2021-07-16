@@ -11,23 +11,27 @@ pygame.init()
 ecran = pygame.display.set_mode((700, 450))
 image = pygame.image.load("maquette2.png").convert_alpha()
 serpent = pygame.image.load("serpent.jpg").convert_alpha()
-ecran.blit(image, (0, 0))
+#ecran.blit(image, (0, 0))
 Sx=8
 Sy=6
 jeu = True
 def new_func():
     jeu = False
 while jeu:
+    ecran.blit(image, (0, 0))
     ecran.blit(serpent, (95+Sx*30, 30+Sy*30))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-           Sy+=1
-            
+            if event.key==K_DOWN :
+                Sy+=1
+            elif event.key == K_UP :
+                Sy-=1 
+            elif event.key == K_RIGHT :
+                Sx+=1
+            elif event.key== K_LEFT:
+                Sx-=1
     pygame.display.flip()
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            jeu = False
-
+    
 
 
 
