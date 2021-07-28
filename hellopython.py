@@ -58,7 +58,7 @@ while jeu:
             if event.key == K_SPACE:
                 jeu = False
                 print("Fermer la fenetre")
-    print(Sx)
+    #print(Sx)
     ecran.blit(label, (520, 10))
     if Sx == 0 or Sx == 17:
         jeu = False
