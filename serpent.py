@@ -77,6 +77,7 @@ def gameLoop():
     game_close = False
     Sx=16
     Sy = 15 
+    vitesse = 1
 
     Sx_change = 0       
     Sy_change = 0
@@ -171,7 +172,7 @@ def gameLoop():
             foody = random.randint(6,25)
             Length_of_snake += 1
             
-        clock.tick(1)
+        clock.tick(vitesse)
     
     pygame.quit()
     quit()
