@@ -70,6 +70,24 @@ def Your_score(score):
     value = score_font.render("Your Score: " + str(score), True, white)
     ecran.blit(value, [99, 2])
 
+def Dessin_damier():
+    for i in range(14):
+        if (i % 2) == 0:
+            for j in range(17):
+                if (j % 2) == 0:
+                    carre = pygame.image.load("carre1.png")
+                    ecran.blit(carre, (95+j*30, 30+i*30))
+                else:
+                    carre = pygame.image.load("carre2.png")
+                    ecran.blit(carre, (95+j*30, 30+i*30))
+        else:
+            for j in range(17):
+                if (j % 2) == 0:
+                    carre = pygame.image.load("carre2.png")
+                    ecran.blit(carre, (95+j*30, 30+i*30))
+                else:
+                    carre = pygame.image.load("carre1.png")
+                    ecran.blit(carre, (95+j*30, 30+i*30))
 
 
 def gameLoop():
@@ -102,7 +120,7 @@ def gameLoop():
         while game_close == True:
             ecran.blit(image, (0, 0))
             ecran.blit(score, (95,0 ))
-            ecran.blit(jeux, (95, 60))
+            Dessin_damier()
             message("Perdu! Appuyer Q-Quitter ou C-Rejouer", red)
             Your_score(Length_of_snake - 1)
             pygame.display.update()
@@ -147,7 +165,8 @@ def gameLoop():
 
         ecran.blit(image, (0, 0))
         ecran.blit(score, (95,0 ))
-        ecran.blit(jeux, (95, 60))
+        #ecran.blit(jeux, (95, 60))
+        Dessin_damier()
         Your_score(Length_of_snake - 1)
         
         pommerouge = pygame.image.load("pomme.png")
