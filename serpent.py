@@ -148,6 +148,7 @@ def gameLoop():
         ecran.blit(image, (0, 0))
         ecran.blit(score, (95,0 ))
         ecran.blit(jeux, (95, 60))
+        Your_score(Length_of_snake - 1)
         
         pommerouge = pygame.image.load("pomme.png")
         ecran.blit(pommerouge, (95+foodx*30, 30+foody*30))
