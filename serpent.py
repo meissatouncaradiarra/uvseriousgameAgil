@@ -7,15 +7,17 @@ pygame.init()
 
 white = (255, 255, 255)
 red=(255,0,0)
+vert = (0,255,0)
 dis_width = 700
 dis_height  = 460
 ecran = pygame.display.set_mode((dis_width, dis_height))
-image = pygame.image.load("generale.jpg").convert_alpha()
+image = pygame.image.load("fond.png").convert_alpha()
 ecran.blit(image, (0, 0))
 
 
-score = pygame.image.load("score.png").convert_alpha()
+score = pygame.image.load("pomme.png").convert_alpha()
 
+chro = pygame.image.load("chrono.png").convert_alpha()
 
 clock = pygame.time.Clock()
 
@@ -67,13 +69,13 @@ def message(msg,color):
 
 
 def Your_score(score):
-    value = score_font.render("Your Score: " + str(score), True, white)
+    value = score_font.render("     : "+str(score), True, vert)
     ecran.blit(value, [99, 2])
 
 
 def My_chrono(chrono):
-    value = score_font.render("Chrono: " + str(chrono), True, white)
-    ecran.blit(value, [470, 2])
+    value = score_font.render("     : " + str(chrono), True, vert)
+    ecran.blit(value, [480, 2])
 
 
 def Dessin_damier():
@@ -82,25 +84,25 @@ def Dessin_damier():
             for j in range(17):
                 if (j % 2) == 0:
                     carre = pygame.image.load("carre1.png")
-                    ecran.blit(carre, (95+j*30, 60+i*30))
+                    ecran.blit(carre, (95+j*30, 30+i*30))
                 else:
                     carre = pygame.image.load("carre2.png")
-                    ecran.blit(carre, (95+j*30, 60+i*30))
+                    ecran.blit(carre, (95+j*30, 30+i*30))
         else:
             for j in range(17):
                 if (j % 2) == 0:
                     carre = pygame.image.load("carre2.png")
-                    ecran.blit(carre, (95+j*30, 60+i*30))
+                    ecran.blit(carre, (95+j*30, 30+i*30))
                 else:
                     carre = pygame.image.load("carre1.png")
-                    ecran.blit(carre, (95+j*30, 60+i*30))
+                    ecran.blit(carre, (95+j*30, 30+i*30))
 
 
 def gameLoop():
     jeu=True
     game_close = False
     Sx=8
-    Sy = 7
+    Sy = 6
     vitesse = 1
 
     Sx_change = 0       
@@ -126,6 +128,7 @@ def gameLoop():
         while game_close == True:
             ecran.blit(image, (0, 0))
             ecran.blit(score, (95,0 ))
+            ecran.blit(chro, (480, 2))
             Dessin_damier()
             message("Perdu! Appuyer Q-Quitter ou C-Rejouer", red)
             Your_score(Length_of_snake - 1)
@@ -164,22 +167,23 @@ def gameLoop():
                     orientation = "b"
         
         
-        if Sx < 2 or Sx >14 or Sy <3 or Sy> 11 :
+        if Sx < 1 or Sx >=16 or Sy < 1 or Sy >=12 :
+            
+            game_close = True
             pygame.mixer.music.load("perdre.mp3") ################################################################""
             pygame.mixer.music.play()
-            game_close = True
-        
 
         Sx += Sx_change
         Sy += Sy_change
 
         ecran.blit(image, (0, 0))
         ecran.blit(score, (95,0 ))
+        ecran.blit(chro, (480,0 ))
         #ecran.blit(jeux, (95, 60))
         Dessin_damier()
         Your_score(Length_of_snake - 1)
-        My_chrono(pygame.time.get_ticks()/1000)
-        chrono = pygame.time.get_ticks()/1000
+        My_chrono(pygame.time.get_ticks()//1000)
+        chrono = pygame.time.get_ticks()//1000
         pommerouge = pygame.image.load("pomme.png")
         ecran.blit(pommerouge, (95+foodx*30, 30+foody*30))
 
@@ -210,12 +214,15 @@ def gameLoop():
             pygame.mixer.music.play()
             Length_of_snake += 1
         if Sx == poisonx and Sy == poisony:
-            poisonx = random.randint(4,13)
-            poisony = random.randint(5,10)
+            #poisonx = random.randint(4,13)
+            #poisony = random.randint(5,10)
             pygame.mixer.music.load("perdre.mp3") ################################################################""
             pygame.mixer.music.play()
             game_close=True
-            
+        if chrono % 5 == 0 :
+            poisonx = random.randint(4,13)
+            poisony = random.randint(5,10)
+
         clock.tick(vitesse)
     
     pygame.quit()
