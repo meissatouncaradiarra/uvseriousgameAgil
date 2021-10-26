@@ -90,6 +90,8 @@ def gameLoop():
 
     foodx = random.randint(4,13)
     foody = random.randint(5,10)
+    poisonx = random.randint(4,13)
+    poisony = random.randint(5,10)
 
     print(str(foodx))
     print(str(foody))
@@ -147,10 +149,11 @@ def gameLoop():
         ecran.blit(score, (95,0 ))
         ecran.blit(jeux, (95, 60))
         
-        pommevert = pygame.image.load("pomme.png")
-        ecran.blit(pommevert, (95+foodx*30, 30+foody*30))
+        pommerouge = pygame.image.load("pomme.png")
+        ecran.blit(pommerouge, (95+foodx*30, 30+foody*30))
 
-        
+        pommenoire= pygame.image.load("pommepoison.png")
+        ecran.blit(pommenoire, (95+poisonx*30, 30+poisony*30))
 
         snake_Head = []
         snake_Head.append(Sx)
@@ -171,6 +174,10 @@ def gameLoop():
             foodx = random.randint(4,13)
             foody = random.randint(5,10)
             Length_of_snake += 1
+        if Sx == poisonx and Sy == poisony:
+            poisonx = random.randint(4,13)
+            poisony = random.randint(5,10)
+            game_close=True
             
         clock.tick(vitesse)
     
