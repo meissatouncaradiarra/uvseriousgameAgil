@@ -12,7 +12,7 @@ dis_height  = 460
 ecran = pygame.display.set_mode((dis_width, dis_height))
 image = pygame.image.load("generale.jpg").convert_alpha()
 ecran.blit(image, (0, 0))
-jeux = pygame.image.load("cadre.png").convert_alpha()
+
 
 score = pygame.image.load("score.png").convert_alpha()
 
@@ -21,7 +21,7 @@ clock = pygame.time.Clock()
 
 pygame.display.set_caption('Snake game by Edureka')
  
-font_style = pygame.font.SysFont("bahnschrift", 25)
+font_style = pygame.font.SysFont("bahnschrift", 20)
 score_font = pygame.font.SysFont("comicsansms", 20)
 
 
@@ -70,6 +70,12 @@ def Your_score(score):
     value = score_font.render("Your Score: " + str(score), True, white)
     ecran.blit(value, [99, 2])
 
+
+def My_chrono(chrono):
+    value = score_font.render("Chrono: " + str(chrono), True, white)
+    ecran.blit(value, [470, 2])
+
+
 def Dessin_damier():
     for i in range(13):
         if (i % 2) == 0:
@@ -104,7 +110,7 @@ def gameLoop():
     Length_of_snake = 1
 
     orientation = "g"
-
+    chrono = 0
 
     foodx = random.randint(4,13)
     foody = random.randint(5,10)
@@ -123,6 +129,8 @@ def gameLoop():
             Dessin_damier()
             message("Perdu! Appuyer Q-Quitter ou C-Rejouer", red)
             Your_score(Length_of_snake - 1)
+            value = score_font.render("Chrono: " + str(chrono), True, white)
+            ecran.blit(value, [470, 2])
             pygame.display.update()
  
             for event in pygame.event.get():
@@ -157,6 +165,8 @@ def gameLoop():
         
         
         if Sx < 2 or Sx >14 or Sy <3 or Sy> 11 :
+            pygame.mixer.music.load("perdre.mp3") ################################################################""
+            pygame.mixer.music.play()
             game_close = True
         
 
@@ -168,7 +178,8 @@ def gameLoop():
         #ecran.blit(jeux, (95, 60))
         Dessin_damier()
         Your_score(Length_of_snake - 1)
-        
+        My_chrono(pygame.time.get_ticks()/1000)
+        chrono = pygame.time.get_ticks()/1000
         pommerouge = pygame.image.load("pomme.png")
         ecran.blit(pommerouge, (95+foodx*30, 30+foody*30))
 
@@ -184,6 +195,8 @@ def gameLoop():
  
         for x in snake_List[:-1]:
             if x == snake_Head:
+                pygame.mixer.music.load("perdre.mp3") ################################################################""
+                pygame.mixer.music.play()
                 game_close = True
  
         our_snake(snake_List,orientation)
@@ -193,10 +206,14 @@ def gameLoop():
         if Sx == foodx and Sy == foody:
             foodx = random.randint(4,13)
             foody = random.randint(5,10)
+            pygame.mixer.music.load("mange1.mp3") #######################################################################################################
+            pygame.mixer.music.play()
             Length_of_snake += 1
         if Sx == poisonx and Sy == poisony:
             poisonx = random.randint(4,13)
             poisony = random.randint(5,10)
+            pygame.mixer.music.load("perdre.mp3") ################################################################""
+            pygame.mixer.music.play()
             game_close=True
             
         clock.tick(vitesse)
