@@ -12,7 +12,7 @@ dis_height  = 460
 ecran = pygame.display.set_mode((dis_width, dis_height))
 image = pygame.image.load("generale.jpg").convert_alpha()
 ecran.blit(image, (0, 0))
-jeux = pygame.image.load("jeux.png").convert_alpha()
+jeux = pygame.image.load("cadre.png").convert_alpha()
 
 score = pygame.image.load("score.png").convert_alpha()
 
@@ -23,7 +23,7 @@ pygame.display.set_caption('Snake game by Edureka')
  
 font_style = pygame.font.SysFont("bahnschrift", 25)
 score_font = pygame.font.SysFont("comicsansms", 20)
- 
+
 
 def our_snake(snake_list,orientation):
     
@@ -32,31 +32,31 @@ def our_snake(snake_list,orientation):
         if orientation=="g" :
             if x==len(snake_list)-1:
                 serpent = pygame.image.load("gauche.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
             else :
-                serpent = pygame.image.load("queue.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                serpent = pygame.image.load("corps.jpg")
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
         elif orientation=="d" :
             if x==len(snake_list)-1:
                 serpent = pygame.image.load("droite.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
             else :
-                serpent = pygame.image.load("queue.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                serpent = pygame.image.load("corps.jpg")
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
         if orientation=="h":
             if x==len(snake_list)-1:
-                serpent = pygame.image.load("haut.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                serpent = pygame.image.load("tetehaut.png")
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
             else :
-                serpent = pygame.image.load("queue.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                serpent = pygame.image.load("corps.jpg")
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
         elif orientation=="b" :
             if x==len(snake_list)-1:
                 serpent = pygame.image.load("bas.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
             else :
-                serpent = pygame.image.load("queue.png")
-                ecran.blit(serpent, (95+snake_list[x][0]*15, 15+snake_list[x][1]*15))
+                serpent = pygame.image.load("corps.jpg")
+                ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
  
 def message(msg,color):
     mesg = font_style.render(msg, True, color)
@@ -75,8 +75,8 @@ def Your_score(score):
 def gameLoop():
     jeu=True
     game_close = False
-    Sx=16
-    Sy = 15 
+    Sx=8
+    Sy = 7
     vitesse = 1
 
     Sx_change = 0       
@@ -88,8 +88,8 @@ def gameLoop():
     orientation = "g"
 
 
-    foodx = random.randint(3,30)
-    foody = random.randint(6,25)
+    foodx = random.randint(4,13)
+    foody = random.randint(5,10)
 
     print(str(foodx))
     print(str(foody))
@@ -136,7 +136,7 @@ def gameLoop():
                     orientation = "b"
         
         
-        if Sx < 2 or Sx >31 or Sy <5 or Sy> 26 :
+        if Sx < 2 or Sx >14 or Sy <3 or Sy> 11 :
             game_close = True
         
 
@@ -148,7 +148,7 @@ def gameLoop():
         ecran.blit(jeux, (95, 60))
         
         pommevert = pygame.image.load("pomme.png")
-        ecran.blit(pommevert, (95+foodx*15, 15+foody*15))
+        ecran.blit(pommevert, (95+foodx*30, 30+foody*30))
 
         
 
@@ -168,8 +168,8 @@ def gameLoop():
         pygame.display.update()
         
         if Sx == foodx and Sy == foody:
-            foodx = random.randint(3,30)
-            foody = random.randint(6,25)
+            foodx = random.randint(4,13)
+            foody = random.randint(5,10)
             Length_of_snake += 1
             
         clock.tick(vitesse)
