@@ -97,10 +97,35 @@ def Dessin_damier():
                     carre = pygame.image.load("carre1.png")
                     ecran.blit(carre, (95+j*30, 30+i*30))
 
-#Chrono
+#Chrono début
+font = pygame.font.Font(None, 25)
+def _make_chrono_label(chrono):
+    "Crée une Surface représentant le temps du chrono"
+    return font.render(chrono.strftime("%H : %M : %S"),
+                       True, (255, 255, 255))
+ 
+def update(chrono, label, dt):
+    """Mise à jour du temps écoulé.
+ 
+    dt est le nombre de millisecondes
+    """
+    old_chrono = chrono
+    chrono += timedelta(milliseconds=dt)
+    # Comme le chrono n'indique pas les fractions de secondes,
+    # on ne met à jour le label que si quelque chose de visible a changé
+    if old_chrono.second != chrono.second:
+        label = _make_chrono_label(chrono)
+    return chrono, label
 
+
+#chrono fin
 
 def gameLoop():
+    #chrono début
+    chrono1 = datetime.combine(date.today(), time(0, 0))
+    label = _make_chrono_label(chrono1)
+    fps_clock = pygame.time.Clock()
+    #chrono fin
     jeu=True
     game_close = False
     Sx=8
@@ -127,6 +152,11 @@ def gameLoop():
     while jeu:
 
 
+        #chrono debut
+        dt = fps_clock.tick(60)
+        chrono1, label = update(chrono1, label, dt) 
+    
+        #chrono fin
         while game_close == True:
             ecran.blit(image, (0, 0))
             ecran.blit(score, (95,0 ))
@@ -134,8 +164,16 @@ def gameLoop():
             Dessin_damier()
             message("Perdu! Appuyer Q-Quitter ou C-Rejouer", red)
             Your_score(Length_of_snake - 1)
-            value = score_font.render("     : " + str(chrono), True, vert)
-            ecran.blit(value, [470, 2])
+            #value = score_font.render("     : " + str(chrono), True, vert)
+            #ecran.blit(value, [470, 2])
+
+            #chrono debut
+
+            ecran.blit(label, (520, 10))
+
+            #chrono fin
+
+
             pygame.display.update()
  
             for event in pygame.event.get():
@@ -185,10 +223,16 @@ def gameLoop():
         #ecran.blit(jeux, (95, 60))
         Dessin_damier()
         Your_score(Length_of_snake - 1)
-        My_chrono(pygame.time.get_ticks()//1000)
+        #My_chrono(pygame.time.get_ticks()//1000)
         chrono = pygame.time.get_ticks()//1000
         pommerouge = pygame.image.load("pomme.png")
         ecran.blit(pommerouge, (95+foodx*30, 30+foody*30))
+
+        #chrono debut
+
+        ecran.blit(label, (520, 10))
+
+        #chrono fin
 
         pommenoire= pygame.image.load("pommepoison.png")
         ecran.blit(pommenoire, (95+poisonx*30, 30+poisony*30))
@@ -222,10 +266,11 @@ def gameLoop():
             pygame.mixer.music.load("perdre.mp3") ################################################################""
             pygame.mixer.music.play()
             game_close=True
-        if chrono % 5 == 0 :
+        if chrono % 7 == 0 :
             poisonx = random.randint(4,13)
             poisony = random.randint(5,10)
-
+        
+        
         clock.tick(vitesse)
     
     pygame.quit()
