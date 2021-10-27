@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-
+from datetime import timedelta, datetime, date, time
 
 pygame.init()
 
@@ -97,6 +97,8 @@ def Dessin_damier():
                     carre = pygame.image.load("carre1.png")
                     ecran.blit(carre, (95+j*30, 30+i*30))
 
+#Chrono
+
 
 def gameLoop():
     jeu=True
@@ -132,7 +134,7 @@ def gameLoop():
             Dessin_damier()
             message("Perdu! Appuyer Q-Quitter ou C-Rejouer", red)
             Your_score(Length_of_snake - 1)
-            value = score_font.render("Chrono: " + str(chrono), True, white)
+            value = score_font.render("     : " + str(chrono), True, vert)
             ecran.blit(value, [470, 2])
             pygame.display.update()
  
@@ -142,6 +144,7 @@ def gameLoop():
                         jeu = False
                         game_close = False
                     if event.key == pygame.K_c:
+                        chrono=0
                         gameLoop()
 
 
