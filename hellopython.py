@@ -5,7 +5,24 @@
 
 import pygame
 from pygame.locals import *
-from datetime import timedelta, datetime, date, time
+def _make_chrono_label(chrono):
+    "Crée une Surface représentant le temps du chrono"
+    return font.render(chrono.strftime("%H : %M : %S"),
+                       True, (255, 255, 255))
+ 
+def update(chrono, label, dt):
+    """Mise à jour du temps écoulé.
+ 
+    dt est le nombre de millisecondes
+    """
+    old_chrono = chrono
+    chrono += timedelta(milliseconds=dt)
+    # Comme le chrono n'indique pas les fractions de secondes,
+    # on ne met à jour le label que si quelque chose de visible a changé
+    if old_chrono.second != chrono.second:
+        label = _make_chrono_label(chrono)
+    return chrono, label
+
 def _make_chrono_label(chrono):
     "Crée une Surface représentant le temps du chrono"
     return font.render(chrono.strftime("%H : %M : %S"),

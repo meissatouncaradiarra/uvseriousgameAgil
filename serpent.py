@@ -7,7 +7,7 @@ pygame.init()
 
 white = (255, 255, 255)
 red=(255,0,0)
-vert = (0,255,0)
+vert = (255, 255, 255)
 dis_width = 700
 dis_height  = 460
 ecran = pygame.display.set_mode((dis_width, dis_height))
@@ -21,7 +21,7 @@ chro = pygame.image.load("chrono.png").convert_alpha()
 
 clock = pygame.time.Clock()
 
-pygame.display.set_caption('Snake game by Edureka')
+pygame.display.set_caption('Snake serious')
  
 font_style = pygame.font.SysFont("bahnschrift", 20)
 score_font = pygame.font.SysFont("comicsansms", 20)
@@ -269,7 +269,8 @@ def gameLoop():
         if chrono % 7 == 0 :
             poisonx = random.randint(4,13)
             poisony = random.randint(5,10)
-        
+            if (Length_of_snake - 1) % 2 == 0:
+                vitesse = Length_of_snake
         
         clock.tick(vitesse)
     
