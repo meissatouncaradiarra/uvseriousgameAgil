@@ -14,7 +14,6 @@ ecran = pygame.display.set_mode((dis_width, dis_height))
 image = pygame.image.load("fond.png").convert_alpha()
 ecran.blit(image, (0, 0))
 
-
 score = pygame.image.load("pomme.png").convert_alpha()
 
 chro = pygame.image.load("chrono.png").convert_alpha()
@@ -26,112 +25,71 @@ pygame.display.set_caption('Snake serious')
 font_style = pygame.font.SysFont("bahnschrift", 20)
 score_font = pygame.font.SysFont("comicsansms", 20)
 
+def affichage_case(x,y,image_file):
+        img = pygame.image.load(image_file)
+        ecran.blit(img, (95+x*30, 30+y*30))
+
+def affichage_serpent(liste):
+    for i in range(len(liste)):
+        affichage_case(liste[i][0],liste[i][1],liste[i][2])
+
+
 
 def our_snake(snake_list,orientation,orientationq):
 
     if len(snake_list)==1 :
-        if orientation=="g" :
-            serpent = pygame.image.load("gauche.png")
-            ecran.blit(serpent, (95+snake_list[0][0]*30, 30+snake_list[0][1]*30))
-        if orientation=="d" :
-            serpent = pygame.image.load("droite.png")
-            ecran.blit(serpent, (95+snake_list[0][0]*30, 30+snake_list[0][1]*30))
-        if orientation=="h" :
-            serpent = pygame.image.load("tetehaut.png")
-            ecran.blit(serpent, (95+snake_list[0][0]*30, 30+snake_list[0][1]*30))
-        if orientation=="b" :
-            serpent = pygame.image.load("bas.png")
-            ecran.blit(serpent, (95+snake_list[0][0]*30, 30+snake_list[0][1]*30))
+        if orientation=="g" : snake_list[0][2] = "gauche.png"
+        if orientation=="d" : snake_list[0][2] = "droite.png"
+        if orientation=="h" : snake_list[0][2] = "tetehaut.png"
+        if orientation=="b" : snake_list[0][2] = "bas.png"
+            
     else :
         for x in range(len(snake_list)):
             
             if orientation=="g" :
-                if x==len(snake_list)-1:
-                    serpent = pygame.image.load("gauche.png")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                if x==len(snake_list)-1: snake_list[x][2] = "gauche.png"
                 elif x==0 :
-                    if(orientationq=="g") :
-                        serpent = pygame.image.load("queued.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="d") :
-                        serpent = pygame.image.load("queueg.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="h") :
-                        serpent = pygame.image.load("queueb.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="b") :
-                        serpent = pygame.image.load("queueh.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                else :
-                    serpent = pygame.image.load("corps.jpg")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                    if(orientationq=="g") : snake_list[x][2] = "queued.png"
+                    elif(orientationq=="d") : snake_list[x][2] = "queueg.png"
+                    elif(orientationq=="h") : snake_list[x][2] = "queueb.png"
+                    elif(orientationq=="b") : snake_list[x][2] = "queueh.png"            
+                    
             elif orientation=="d" :
-                if x==len(snake_list)-1:
-                    serpent = pygame.image.load("droite.png")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                if x==len(snake_list)-1: snake_list[x][2] = "droite.png"
                 elif x==0 :
-                    if(orientationq=="g") :
-                        serpent = pygame.image.load("queued.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="d") :
-                        serpent = pygame.image.load("queueg.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="h") :
-                        serpent = pygame.image.load("queueb.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="b") :
-                        serpent = pygame.image.load("queueh.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                else :
-                    serpent = pygame.image.load("corps.jpg")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-            if orientation=="h":
-                if x==len(snake_list)-1:
-                    serpent = pygame.image.load("tetehaut.png")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                    if(orientationq=="g") : snake_list[x][2] = "queued.png"
+                    elif(orientationq=="d") : snake_list[x][2] = "queueg.png"
+                    elif(orientationq=="h") : snake_list[x][2] = "queueb.png" #######################
+                    elif(orientationq=="b") :snake_list[x][2] = "queueh.png"
+                
+                    
+            elif orientation=="h":
+                if x==len(snake_list)-1: snake_list[x][2] = "tetehaut.png"            
                 elif x==0 :
-                    if(orientationq=="g") :
-                        serpent = pygame.image.load("queued.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="d") :
-                        serpent = pygame.image.load("queueg.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="h") :
-                        serpent = pygame.image.load("queueb.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="b") :
-                        serpent = pygame.image.load("queueh.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                else :
-                    serpent = pygame.image.load("corps.jpg")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                    if(orientationq=="g") : snake_list[x][2] = "queued.png"  
+                    elif(orientationq=="d") : snake_list[x][2] = "queueg.png"   ###################                                
+                    elif(orientationq=="h") : snake_list[x][2] = "queueb.png"        
+                    elif(orientationq=="b") : snake_list[x][2] = "queueh.png"                    
+                
+                
             elif orientation=="b" :
-                if x==len(snake_list)-1:
-                    serpent = pygame.image.load("bas.png")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                if x==len(snake_list)-1: snake_list[x][2] = "bas.png"                
                 elif x==0 :
-                    if(orientationq=="g") :
-                        serpent = pygame.image.load("queued.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="d") :
-                        serpent = pygame.image.load("queueg.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="h") :
-                        serpent = pygame.image.load("queueb.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                    elif(orientationq=="b") :
-                        serpent = pygame.image.load("queueh.png")
-                        ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
-                else :
-                    serpent = pygame.image.load("corps.jpg")
-                    ecran.blit(serpent, (95+snake_list[x][0]*30, 30+snake_list[x][1]*30))
+                    if(orientationq=="g") : snake_list[x][2] = "queued.png"                       
+                    elif(orientationq=="d") : snake_list[x][2] = "queueg.png"                        
+                    elif(orientationq=="h") :snake_list[x][2] = "queueb.png"                        
+                    elif(orientationq=="b") :snake_list[x][2] = "queueh.png"                       
+                
+            if x != len(snake_list)-1 and x != 0:
+                if (snake_list[x+1][0]) == snake_list[x][0] :
+                    snake_list[x][2] = "corpsv.jpg"    
+                else: snake_list[x][2] = "corpsh.jpg"                  
+                
+
  
 def message(msg,color):
     mesg = font_style.render(msg, True, color)
     ecran.blit(mesg, [200, 30+7*30])
-
-
-
 
 
 def Your_score(score):
@@ -149,19 +107,19 @@ def Dessin_damier():
         if (i % 2) == 0:
             for j in range(17):
                 if (j % 2) == 0:
-                    carre = pygame.image.load("carre1.png")
-                    ecran.blit(carre, (95+j*30, 30+i*30))
+                    affichage_case(j,i,"carre1.png")
+                    
                 else:
-                    carre = pygame.image.load("carre2.png")
-                    ecran.blit(carre, (95+j*30, 30+i*30))
+                    affichage_case(j,i,"carre2.png")
+                    
         else:
             for j in range(17):
                 if (j % 2) == 0:
-                    carre = pygame.image.load("carre2.png")
-                    ecran.blit(carre, (95+j*30, 30+i*30))
+                    affichage_case(j,i,"carre2.png")
+                    
                 else:
-                    carre = pygame.image.load("carre1.png")
-                    ecran.blit(carre, (95+j*30, 30+i*30))
+                    affichage_case(j,i,"carre1.png")
+                    
 
 #Chrono début
 font = pygame.font.Font(None, 25)
@@ -182,7 +140,6 @@ def update(chrono, label, dt):
     if old_chrono.second != chrono.second:
         label = _make_chrono_label(chrono)
     return chrono, label
-
 
 #chrono fin
 
@@ -223,6 +180,7 @@ def gameLoop():
     print(str(foodx))
     print(str(foody))
 
+    
     while jeu:
 
 
@@ -236,7 +194,7 @@ def gameLoop():
             ecran.blit(score, (95,0 ))
             ecran.blit(chro, (480, 2))
             Dessin_damier()
-            message("Perdu! Appuyer Q-Quitter ou C-Rejouer", red)
+            message("Perdu! Appuyer Q-Quitter ou R-Rejouer", red)
             Your_score(Length_of_snake - 1)
             #value = score_font.render("     : " + str(chrono), True, vert)
             #ecran.blit(value, [470, 2])
@@ -255,7 +213,7 @@ def gameLoop():
                     if event.key == pygame.K_q:
                         jeu = False
                         game_close = False
-                    if event.key == pygame.K_c:
+                    if event.key == pygame.K_r:
                         chrono=0
                         gameLoop()
 
@@ -308,21 +266,28 @@ def gameLoop():
 
         #chrono fin
 
-        pommenoire= pygame.image.load("pommepoison.png")
-        ecran.blit(pommenoire, (95+poisonx*30, 30+poisony*30))
+        affichage_case(poisonx,poisony,"pommepoison.png")
 
         snake_Head = []
         snake_Head.append(Sx)
         snake_Head.append(Sy)
+        snake_Head.append("gauche.png")
         snake_List.append(snake_Head)
         if len(snake_List) > Length_of_snake:
             del snake_List[0]
- 
+
+        """ for x in range(Length_of_snake):
+            if snake_List[x][0]==snake_Head[0] and snake_List[x][1]==snake_Head[1] and x!=Length_of_snake-1:
+                if x == snake_Head:
+                    pygame.mixer.music.load("perdre.mp3") ################################################################""
+                    pygame.mixer.music.play()
+                    game_close = True """
+    
         for x in snake_List[:-1]:
             if x == snake_Head:
                 pygame.mixer.music.load("perdre.mp3") ################################################################""
                 pygame.mixer.music.play()
-                game_close = True
+                game_close = True 
         #orientation queue debut
         if Length_of_snake == 2 :
             if orientation == "d" :
@@ -346,6 +311,7 @@ def gameLoop():
             elif avant_queuey -1 == snake_List[1][1] :
                 orientationq = "h"
         our_snake(snake_List,orientation,orientationq)
+        affichage_serpent(snake_List)
         
         pygame.display.update()
         
